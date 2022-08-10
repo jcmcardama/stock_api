@@ -15,6 +15,7 @@ gem 'knock', git: 'https://github.com/nsarno/knock', branch: 'master', ref: '921
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem "pry"
 end
 
 group :development do

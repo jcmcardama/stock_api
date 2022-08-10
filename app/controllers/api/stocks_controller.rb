@@ -7,9 +7,10 @@ module Api
     def index
       @stocks = Stock.all
 
-      render json: {data: @stocks,
-                    user: current_user
-                  }
+      render json: @stocks
+      # render json: {data: @stocks,
+      #               user: current_user
+      #             }
     end
 
     # GET /stocks/1

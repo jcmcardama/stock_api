@@ -7,4 +7,7 @@ class User < ApplicationRecord
   def self.from_token_payload(payload)
     self.find payload["sub"]
   end
+
+  validates :email, presence: true
+  validates :password, presence: true, confirmation: true
 end
