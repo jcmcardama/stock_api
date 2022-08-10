@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root 'application#root'
   post 'user_token' => 'user_token#create'
   devise_for :users, controllers: {
     sessions: 'users/sessions',
