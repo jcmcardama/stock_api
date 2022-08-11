@@ -4,7 +4,7 @@ class CreateStocks < ActiveRecord::Migration[7.0]
       t.string :name
       t.integer :amount
       t.integer :transaction_id
-      t.integer :user_id
+      t.integer :user_id, default: 0
 
       t.timestamps
     end

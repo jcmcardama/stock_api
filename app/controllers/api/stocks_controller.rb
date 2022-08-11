@@ -5,6 +5,7 @@ module Api
 
     # GET /stocks
     def index
+      #admin lang makakakita
       @stocks = Stock.all
 
       render json: @stocks
@@ -15,6 +16,8 @@ module Api
 
     # GET /stocks/1
     def show
+      #admin can access specific user's stocks
+      #user
       render json: @stock
     end
 
@@ -51,7 +54,7 @@ module Api
 
       # Only allow a list of trusted parameters through.
       def stock_params
-        params.require(:stock).permit(:name, :amount, :transaction_id, :user_id)
+        params.require(:stock).permit(:name, :amount, :user_id)
       end
   end
 end
