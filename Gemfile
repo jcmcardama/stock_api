@@ -10,6 +10,7 @@ gem "bootsnap", require: false
 gem "devise"
 gem 'knock', git: 'https://github.com/nsarno/knock', branch: 'master', ref: '9214cd027422df8dc31eb67c60032fbbf8fc100b'
 gem "rack-cors"
+gem 'iex-ruby-client'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]

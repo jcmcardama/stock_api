@@ -27,12 +27,13 @@ module Api
     end
 
     # PATCH/PUT /transactions/1
+    # Not needed
     def update
-      if @transaction.update(transaction_params)
-        render json: @transaction
-      else
-        render json: @transaction.errors, status: :unprocessable_entity
-      end
+      # if @transaction.update(transaction_params)
+      #   render json: @transaction
+      # else
+      #   render json: @transaction.errors, status: :unprocessable_entity
+      # end
     end
 
     # DELETE /transactions/1

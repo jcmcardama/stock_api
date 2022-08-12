@@ -30,8 +30,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
       if password == confirm_password
         # Note that the data which should be returned depends heavily of the API client needs.
         resource.save
-        id = User.find_by(email: email).id
-        render status: 200, json: { email: email, id: id, message: 'Sign Up successfully' }
+        user = User.find_by(email: email)
+        render status: 200, json: { user: user, message: 'Sign Up successfully' }
       else
         render status: 401, json: { error: 'Password MUST matched' }
       end
