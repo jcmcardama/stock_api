@@ -5,7 +5,7 @@ module Api
 
     # GET /transactions
     def index
-      @transactions = Transaction.all
+      @transactions = current_user.transactions.all
 
       render json: @transactions
     end
@@ -20,7 +20,7 @@ module Api
       @transaction = Transaction.new(transaction_params)
 
       if @transaction.save
-        render json: @transaction, status: :created, location: @transaction
+        render json: @transaction, status: :created, location: nil
       else
         render json: @transaction.errors, status: :unprocessable_entity
       end
@@ -50,7 +50,7 @@ module Api
 
       # Only allow a list of trusted parameters through.
       def transaction_params
-        params.require(:transaction).permit(:sell_stock_id, :buy_stock_id, :user_id, :amount, :status)
+        params.require(:transaction).permit(:user_id, :quantity, :status, :action, :stock_id)
       end
   end
 end
