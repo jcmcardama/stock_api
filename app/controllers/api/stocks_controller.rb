@@ -1,23 +1,15 @@
 module Api
   class StocksController < ApplicationController
-    before_action :authenticate_user
     before_action :set_stock, only: ['show', 'update', 'destroy']
 
     # GET /stocks
     def index
-      #admin lang makakakita
       @stocks = Stock.all
-
       render json: @stocks
-      # render json: {data: @stocks,
-      #               user: current_user
-      #             }
     end
 
     # GET /stocks/1
     def show
-      #admin can access specific user's stocks
-      #user
       render json: @stock
     end
 
@@ -34,7 +26,9 @@ module Api
 
     # PATCH/PUT /stocks/1
     def update
-      if @stock.update(stock_params)
+      client = IEX::Api::Client.new
+      @quote = client.quote(@stock.name)
+      if @stock.update(price: @quote.latest_price)
         render json: @stock
       else
         render json: @stock.errors, status: :unprocessable_entity
@@ -43,7 +37,7 @@ module Api
 
     # DELETE /stocks/1
     def destroy
-      @stock.destroy
+      # @stock.destroy
     end
 
     private
@@ -54,7 +48,7 @@ module Api
 
       # Only allow a list of trusted parameters through.
       def stock_params
-        params.require(:stock).permit(:name, :amount, :user_id)
+        params.require(:stock).permit(:name, :price)
       end
   end
 end
