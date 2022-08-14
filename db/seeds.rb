@@ -19,3 +19,5 @@
 
     amazon = client.quote('AMZN')
     stock = Stock.create(name: amazon.symbol, price: amazon.latest_price)
+
+    admin = User.create(email: "admin@gmail.com", password: "password", admin: true)

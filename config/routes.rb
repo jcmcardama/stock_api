@@ -8,6 +8,6 @@ Rails.application.routes.draw do
   namespace :api, path: '/' do
     resources :stocks
     resources :transactions
-    resources :markets
+    resources :managements
   end
 end

@@ -5,12 +5,18 @@ module Api
 
     # GET /transactions
     def index
-      @transactions = current_user.transactions.all
-
-      render json: {data: {
-                    user: current_user,
-                    transaction: @transactions}
-                    }
+      if !current_user.admin
+        @transactions = current_user.transactions.all
+        render json: {data: {
+                      user: current_user,
+                      transactions: transactions_details(@transactions)}
+        }
+      else
+        @transactions = Transaction.all
+        render json: {data: {
+                      transaction: @transactions}
+        }
+      end
     end
 
     # GET /transactions/1
@@ -20,7 +26,7 @@ module Api
 
     # POST /transactions
     def create
-      @transaction = Transaction.new(transaction_params)
+      @transaction = current_user.transactions.new(transaction_params)
 
       if @transaction.save
         render json: @transaction, status: :created, location: nil
@@ -54,6 +60,18 @@ module Api
       # Only allow a list of trusted parameters through.
       def transaction_params
         params.require(:transaction).permit(:user_id, :quantity, :action, :stock_id, :price)
+      end
+
+      def transactions_details(transactions)
+        details = {buy: [], sell: []}
+        transactions.map do |transaction|
+          if transaction.action
+            details[:buy] << transaction
+          else
+            details[:sell] << transaction
+          end
+        end
+        details
       end
   end
 end
