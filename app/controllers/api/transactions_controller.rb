@@ -9,7 +9,8 @@ module Api
         @transactions = current_user.transactions.all
         render json: {data: {
                       user: current_user,
-                      transactions: transactions_details(@transactions)}
+                      details: transactions_details(@transactions),
+                      transactions: @transactions}
         }
       else
         @transactions = Transaction.all
